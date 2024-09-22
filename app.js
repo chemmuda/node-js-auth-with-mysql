@@ -7,10 +7,14 @@ const usersRoutes = require('./dev/routes/user.routes');
 
 const app = express();
 const PORT = process.env.PORT || 7500;
+const apiV1Router = express.Router();
 
 app.use(bodyParser.json());
-app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1', usersRoutes);
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/api/dx/dev/v1', apiV1Router);
+apiV1Router.use('auth', authRoutes);
+apiV1Router.use('users', usersRoutes);
 
 sequelize.sync()
   .then(() => console.log('Database connected'))
