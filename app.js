@@ -12,9 +12,10 @@ const apiV1Router = express.Router();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+apiV1Router.use('/auth', authRoutes);
+apiV1Router.use('/users', usersRoutes);
+
 app.use('/api/dx/dev/v1', apiV1Router);
-apiV1Router.use('auth', authRoutes);
-apiV1Router.use('users', usersRoutes);
 
 sequelize.sync()
   .then(() => console.log('Database connected'))
